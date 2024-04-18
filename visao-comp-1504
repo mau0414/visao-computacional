@@ -1,0 +1,38 @@
+anotacoes aula 15 de abril
+
+* torch.nn eh modulo do pytorch que tem blocos básicos de construção de grafos, como camadas lineares
+
+* quando se instancia modelo sem especificar parametros ele gera dois parametros aleatorios com base na quantidade de in/out_features
+
+* list(model.parameters()) retorna lista com parametros; existem zero_grad também: se comporta igual o modelo criado
+
+* pytorch usa batchs de dados ao inves de tratar dados sozinhos; ajuda na paralelizacao que o pytorch tenta aplicar nos calculos
+
+* modelos do pytorch sempre esperam um tensor de tamanho NxC1xC2... onde N é o numero de instancias que serão processadas (número de dados)
+ -> dimensão N x 1 no notebook atual onde N = len(inputs)
+ 
+ * pytorch funciona de modo que nn.BCEWithLogisticLoss cria instância que tem dunder __call__ que quando se chama a instância como função é calculada a loss function
+ -> BCE significa binary cross entropy
+ 
+ * quem faz step e apagar de grads de parametros eh um otimizador SGD
+ 
+ * metodos com _ no pytorch sao operacoes inplace
+ 
+ * usa-se metodo forward antes do metodo __call__ quando sobreescreve classe Model, para nao sobreescrever e fazer coisas antes
+ 
+ * varias camadas em redes neurais permite obter atributos mais gerais que permitem avaliar melhor a funcao
+  -> camadas mais baixas sao avaliacoes de mais baixo nivel
+  -> varias funcoes f sao feitas usando os mesmos x e essas funcoes sao passadas para proxima camada
+  -> em forma de vetor vetor_f1(x, w1) = vetor_x * vetor_w1; vetor_f2(x, w2) = vetor_x * vetor_w2 
+  -> matriz w de n_linhas e m colunas (vezes) vetor x de m elementos; no caso n_linhas varia
+  -> o mesmo vale para x (vezes) A^T 
+  -> mais camadas deixa algoritmo mais custoso
+  -> muitas camadas causa overfit dos dados e má generalização
+  
+ * nn.ReLU cria uma funcao bastante popular nao linear para ir entre as camadas (ativacao nao linear) 
+  -> ReLU também é bom pela facilidade de calculo do gradiente
+  -> y(x) = max{0, x}
+  
+* regularizacao L2 serve para evitar overfits
+  -> controlado pelo alpha
+  -> força superficies mais suaves, regulariza modelo
